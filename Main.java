@@ -24,7 +24,7 @@ class Room {/*dummy class نفس الكلام  */
     int startDay = S.getDayOfMonth(); 
     int endDay = E.getDayOfMonth();
     return endDay-startDay;
-    /*not complete */
+    /*incomplete */
    }
    
     private ReservationStatue status;
