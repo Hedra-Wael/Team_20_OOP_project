@@ -1,45 +1,79 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.oop_project;
 
-/**
- *
- * @author ahmad
- */
- class Reservation { /*task member 3 */
-    private int Days ;
-    private Guest guest =new Guest(); 
-    private Room room =new Room();   
-    private LocalDate checkInDay;
-    private LocalDate checkOutDay;
-   public int getDays(LocalDate S ,LocalDate E ) {
-    int startDay = S.getDayOfMonth(); 
-    int endDay = E.getDayOfMonth();
-    return endDay-startDay;
-    /*incomplete */
-   }
-   
-    private ReservationStatue status;
-    public Reservation(Guest guest, Room room, LocalDate checkIn, LocalDate checkOut) {
-        this.guest = guest;
-        this.room = room;
-        this.checkInDay = checkIn;
-        this.checkOutDay = checkOut;
-        this.status = ReservationStatue.PENDING; 
-        Days = getDays(checkIn,checkOut);
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class Reservation {
+    private int reservationId;
+    private Guest guest;
+    private Room room;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
+    private String status; 
+
+    public Reservation(int reservationId, Guest guest, Room room,
+                       LocalDate checkInDate, LocalDate checkOutDate) {
+        if (checkInDate == null || checkOutDate == null) {
+            System.out.println("Dates cannot be null.");
+        }
+        if (checkOutDate != null && !checkOutDate.isAfter(checkInDate)) {
+            System.out.println("Check-out must be after check-in.");
+        }
+        this.reservationId = reservationId;
+        this.guest         = guest;
+        this.room          = room;
+        this.checkInDate   = checkInDate;
+        this.checkOutDate  = checkOutDate;
+        this.status        = "CONFIRMED";
     }
-    private enum ReservationStatue{
-        PENDING,
-        CONFIRMED,
-        CANCELLED,
-        COMPLETED;
+
+    public long getNumberOfNights() {
+        return ChronoUnit.DAYS.between(checkInDate, checkOutDate);/*بتحسب عدد  الايام ولازم تكون long */
     }
-    public Guest getGuest() { return guest; }
-    public Room getRoom() { return room; }
-    public LocalDate getCheckInDay() { return checkInDay; }
-    public LocalDate getCheckOutDay() { return checkOutDay; }
-    public ReservationStatue getStatus() { return status; }
-    public void setStatus(ReservationStatue status) { this.status = status; }
+
+    public void cancelReservation() {
+        if (this.status.equals("CANCELLED")) {
+            System.out.println("Reservation is already cancelled.");
+            return;
+        }
+        this.status = "CANCELLED";
+        System.out.println("Reservation #" + reservationId + " has been cancelled.");
+    }
+
+    // Getters
+    public int getReservationId()      { return reservationId; }
+    public Guest getGuest()            { return guest; }
+    public Room getRoom()              { return room; }
+    public LocalDate getCheckInDate()  { return checkInDate; }
+    public LocalDate getCheckOutDate() { return checkOutDate; }
+    public String getStatus()          { return status; }
+
+    // Setters
+    public void setCheckInDate(LocalDate checkInDate) {
+        if (checkInDate == null) {
+            System.out.println("Invalid check-in date.");
+            return;
+        }
+        this.checkInDate = checkInDate;
+    }
+
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        if (checkOutDate == null || !checkOutDate.isAfter(this.checkInDate)) {
+            System.out.println("Check-out must be after check-in.");
+            return;
+        }
+        this.checkOutDate = checkOutDate;
+    }
+
+    public void setStatus(String status) { this.status = status; }
+
+    @Override
+    public String toString() {
+        return "Reservation #" + reservationId +
+               " | Guest: "     + guest.getUsername() +
+               " | Check-in: "  + checkInDate +
+               " | Check-out: " + checkOutDate +
+               " | Nights: "    + getNumberOfNights() +
+               " | Status: "    + status;
+    }
 }
