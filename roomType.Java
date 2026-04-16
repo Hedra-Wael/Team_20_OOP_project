@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.time.LocalDate;
 class RoomType {
     private String name;
     private double basePrice;
