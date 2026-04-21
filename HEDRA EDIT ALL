@@ -16,6 +16,7 @@ public class Main {
         System.out.println("--- Hotel Reception Management System ---");
         boolean running = true;
 
+        //DISPLAY TO THE RECEPTIONIST
         while (running) {
             System.out.println("\n1. Check-in Guest (Create Reservation)");
             System.out.println("2. Process Checkout & Payment");
@@ -36,7 +37,8 @@ public class Main {
         }
         System.out.println("System closed.");
     }
-
+    //TAKING THE NAMES OF THE GUESTS TO CHECK IN THE ROOM WITH HIS NAME
+    //CHECKING IN THE GUESTS
     private static void handleCheckIn() {
         System.out.print("Enter Lead Guest (Account Holder) Username: ");
         String leadUsername = scanner.nextLine();
@@ -49,11 +51,11 @@ public class Main {
             leadGuest.setBalance(20000.0);
             HotelDatabase.guests.add(leadGuest);
         }
-
+        //CHECKING THE NUMBER OF GUESTS TO KNOW HOW MANY ROOMS IS NEEDED ALSO IF THERE IS ANY DISCOUNT
         System.out.print("Total number of persons in the group: ");
         int totalPeople = scanner.nextInt();
 
-        // 1. "Trip" Policy: Over 20 people
+        // "Trip" Policy: Over 20 people
         if (totalPeople > 20) {
             System.out.println("\n[NOTICE]: Groups larger than 20 are considered a 'Trip'.");
             System.out.println("Please contact the Hotel Manager for group rates and manual booking.");
@@ -62,14 +64,14 @@ public class Main {
 
         int peopleRemaining = totalPeople;
         double groupSubtotal = 0; // To track total cost before discount
-
+        //REMINDING THE RECEPTIONIST THE NUMBER OF GUESTS REMAINING
         while (peopleRemaining > 0) {
             System.out.println("\n--- Booking for Room Space (Remaining: " + peopleRemaining + ") ---");
 
             scanner.nextLine();
             System.out.print("Enter occupant name: ");
             String occupantName = scanner.nextLine();
-
+            //ASKING THE GUEST OF THE TYPE OF ROOM HE NEEDS
             System.out.println("Select Room Type (1: Single, 2: Double, 3: Suite): ");
             int typeChoice = scanner.nextInt();
 
@@ -80,7 +82,7 @@ public class Main {
                 default -> 80.0;
             };
 
-            // Showing rooms matching your numbering rules (X01, X02, X03)
+            // Showing rooms matching your numbering rules (10X, 20X, 30X)
             System.out.print("Available Rooms: ");
             for (Room r : HotelDatabase.rooms) {
                 if (r.isAvailable() && r.getRoomNumber() % 10 == typeChoice) {
@@ -113,7 +115,7 @@ public class Main {
             }
         }
 
-        // 2. Apply Discount Logic
+        // Apply Discount FOR WHO ARE MORE THAN 5 GUESTS TOGETHER
         double discount = 0.0;
         if (totalPeople >= 6 && totalPeople <= 10) {
             discount = 0.05; // 5%
@@ -123,8 +125,8 @@ public class Main {
 
         double discountAmount = groupSubtotal * discount;
         double finalTotal = groupSubtotal - discountAmount;
-
-        // 3. Final Group Summary
+        
+        
         System.out.println("\n=========================================");
         System.out.println("         GROUP CHECK-IN COMPLETE         ");
         System.out.println("=========================================");
@@ -139,6 +141,10 @@ public class Main {
         System.out.println("Price per person: $" + (finalTotal / totalPeople));
         System.out.println("=========================================");
     }
+
+
+
+    //FOR GUESTS WHO ARE CHECKING OUT
     private static void handleCheckOut() {
         System.out.print("Enter Guest Username for Checkout: ");
         String username = scanner.nextLine();
@@ -169,6 +175,7 @@ public class Main {
         }
     }
 
+    //VIEW ALL ROOMS AVAILABLE OR OCCUPIED
     private static void viewRoomStatus() {
         System.out.println("\n--- Current Room Status ---");
         for (Room r : HotelDatabase.rooms) {
@@ -210,6 +217,9 @@ public class Main {
                 .findFirst().orElse(null);
     }
 }
+
+
+
 
 
 
