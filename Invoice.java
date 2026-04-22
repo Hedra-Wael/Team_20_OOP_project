@@ -1,6 +1,7 @@
 package com.mycompany.oop_project;
 
-public class Invoice {
+public class Invoice implements Payable {
+
     public enum PaymentMethod { CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER }
 
     private int invoiceId;
