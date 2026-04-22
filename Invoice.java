@@ -29,14 +29,14 @@ public class Invoice {
             reservation.getGuest().setBalance(reservation.getGuest().getBalance() - totalAmount);
             this.isPaid = true;
             this.paymentMethod = method;
-            this.paymentDate = LocalDate.now();
-            reservation.setStatus(Reservation.ReservationStatus.COMPLETED);
-            reservation.setStatus("COMPLETED");
+            reservation.setStatus(Reservation.ReservationStatus.COMPLETED); // Assuming you used the Enum
             System.out.println("Payment successful via " + method);
         } else {
-            System.out.println("Insufficient balance for payment.");
+            // Throwing the custom exception instead of just printing!
+            throw new InvalidPaymentException("Insufficient balance. Total due: $" + totalAmount + ", Available: $" + reservation.getGuest().getBalance());
         }
     }
+
 
     public double getTotalAmount() { return totalAmount; }
     public boolean isPaid() { return isPaid; }
