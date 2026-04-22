@@ -1,57 +1,51 @@
-import java.util.ArrayList;
+package com.mycompany.oop_project;
+
 import java.time.LocalDate;
 
-abstract class Staff {
+public abstract class Staff {
+    // Required Enum
+    public enum Role {
+        ADMIN, RECEPTIONIST
+    }
+
     protected String username;
     protected String password;
     protected LocalDate dateOfBirth;
-    protected Role role;
     protected int workingHours;
+    protected Role role; // Added role attribute
 
-    public Staff(String username, String password, LocalDate dob, Role role, int hours) {
+    public Staff(String username, String password, LocalDate dob, int hours, Role role) {
         this.username = username;
         this.password = password;
         this.dateOfBirth = dob;
-        this.role = role;
         this.workingHours = hours;
-    }
-}
-
-class Admin extends Staff {
-    public Admin(String username, String password, LocalDate dob, int hours) {
-        super(username, password, dob, Role.ADMIN, hours);
+        this.role = role;
     }
 
-    // CRUD for Room Types [cite: 63]
-    public void addRoomType(RoomType rt) { HotelDatabase.roomTypes.add(rt); }
-    public void deleteRoomType(RoomType rt) { HotelDatabase.roomTypes.remove(rt); }
+    public String getUsername() { return username; }
+    public Role getRole() { return role; }
 
-    // CRUD for Amenities [cite: 63]
-    public void addAmenity(Amenity a) { HotelDatabase.amenities.add(a); }
-
-    // CRUD for Rooms [cite: 57]
-    public void addRoom(Room r) { HotelDatabase.rooms.add(r); }
-    public void updateRoom(int index, Room newRoom) {
-        if(index >= 0 && index < HotelDatabase.rooms.size()) {
-            HotelDatabase.rooms.set(index, newRoom);
+    // --- Shared Behaviors for all Staff ---
+    
+    public void viewAllGuests() {
+        System.out.println("\n--- All Registered Guests ---");
+        for (Guest g : HotelDatabase.guests) {
+            System.out.println("Guest: " + g.getUsername() + " | Balance: $" + g.getBalance());
         }
     }
-}
 
-public class HotelDatabase {
-    public static ArrayList<Guest> guests = new ArrayList<>();
-    public static ArrayList<Room> rooms = new ArrayList<>();
-    public static ArrayList<Reservation> reservations = new ArrayList<>();
-    public static ArrayList<Invoice> invoices = new ArrayList<>();
+    public void viewAllRooms() {
+        System.out.println("\n--- All Rooms ---");
+        for (Room r : HotelDatabase.rooms) {
+            String status = r.isAvailable() ? "Available" : "Occupied";
+            System.out.println("Room " + r.getRoomNumber() + " | Status: " + status);
+        }
+    }
 
-    // Added for Milestone 1 [cite: 63]
-    public static ArrayList<RoomType> roomTypes = new ArrayList<>();
-    public static ArrayList<Amenity> amenities = new ArrayList<>();
-
-    public static void loaddata() {
-
-
-        roomTypes.add(new RoomType("Single", 100.0));
-        amenities.add(new Amenity("WiFi"));
+    public void viewAllReservations() {
+        System.out.println("\n--- All Reservations ---");
+        for (Reservation res : HotelDatabase.reservations) {
+            System.out.println(res.toString());
+        }
     }
 }
