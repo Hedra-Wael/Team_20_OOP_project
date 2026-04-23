@@ -16,7 +16,8 @@ public class HotelGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        HotelDatabase.loaddata(); // Initialize your dummy data
+        // Initialize the database with dummy data
+        HotelDatabase.loaddata(); 
         showLoginScreen();
     }
 
@@ -24,18 +25,21 @@ public class HotelGUI extends Application {
         VBox layout = new VBox(15);
         layout.setPadding(new Insets(40));
         layout.setAlignment(Pos.CENTER);
-        layout.setStyle("-fx-background-color: #f4f4f4;");
+        layout.setStyle("-fx-background-color: #ecf0f1;");
 
-        Label titleLabel = new Label("Hotel Management System");
-        titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
+        Label titleLabel = new Label("Grand Horizon Hotel");
+        titleLabel.setStyle("-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
 
         TextField usernameField = new TextField();
         usernameField.setPromptText("Username");
+        usernameField.setMaxWidth(250);
         
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
+        passwordField.setMaxWidth(250);
 
         Button loginBtn = new Button("Login");
+        loginBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;");
         loginBtn.setMinWidth(100);
         
         Label statusLabel = new Label();
@@ -44,7 +48,7 @@ public class HotelGUI extends Application {
             String user = usernameField.getText();
             String pass = passwordField.getText();
 
-            // Simple Logic: Check against your HotelDatabase
+            // Check Guest Login
             boolean found = false;
             for (Guest g : HotelDatabase.guests) {
                 if (g.getUsername().equals(user) && g.getPassword().equals(pass)) {
@@ -54,77 +58,59 @@ public class HotelGUI extends Application {
                 }
             }
 
-            // For demo: Let "admin" / "admin" in as Admin
+            // Simple Logic for Admin/Staff Access
             if (!found && user.equals("admin") && pass.equals("admin")) {
                 Admin adminStaff = new Admin("admin", "admin", LocalDate.of(1990, 1, 1), 40);
                 showAdminDashboard(adminStaff);
                 found = true;
             }
 
-            if (!found) statusLabel.setText("Invalid Credentials!");
+            if (!found) {
+                statusLabel.setText("Invalid username or password!");
+                statusLabel.setStyle("-fx-text-fill: red;");
+            }
         });
 
         layout.getChildren().addAll(titleLabel, usernameField, passwordField, loginBtn, statusLabel);
 
-        Scene scene = new Scene(layout, 400, 350);
-        primaryStage.setTitle("Hotel Login");
+        Scene scene = new Scene(layout, 450, 400);
+        primaryStage.setTitle("Hotel Management System - Login");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private void showAdminDashboard(Admin admin) {
         BorderPane root = new BorderPane();
-        VBox sidebar = new VBox(10);
-        sidebar.setPadding(new Insets(10));
-        sidebar.setStyle("-fx-background-color: #333;");
+        
+        // Sidebar Navigation
+        VBox sidebar = new VBox(15);
+        sidebar.setPadding(new Insets(20));
+        sidebar.setStyle("-fx-background-color: #2c3e50;");
+        sidebar.setPrefWidth(200);
 
-        Label welcome = new Label("Admin: " + admin.getUsername());
-        welcome.setStyle("-fx-text-fill: white;");
+        Label lblUser = new Label("Staff: " + admin.getUsername());
+        lblUser.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
 
-        Button btnRooms = new Button("Manage Rooms");
-        Button btnReservations = new Button("All Reservations");
+        Button btnRooms = new Button("View Rooms");
+        Button btnReservations = new Button("View Reservations");
         Button btnLogout = new Button("Logout");
         
-        btnRooms.setMaxWidth(Double.MAX_VALUE);
-        btnReservations.setMaxWidth(Double.MAX_VALUE);
-        btnLogout.setOnAction(e -> showLoginScreen());
-
-        sidebar.getChildren().addAll(welcome, new Separator(), btnRooms, btnReservations, btnLogout);
-
-        // Center Content: Room List
-        ListView<String> roomListView = new ListView<>();
-        for (Room r : HotelDatabase.rooms) {
-            roomListView.getItems().add("Room " + r.getRoomNumber() + " - " + (r.isAvailable() ? "Available" : "Occupied"));
-        }
-
-        root.setLeft(sidebar);
-        root.setCenter(roomListView);
-
-        Scene scene = new Scene(root, 700, 500);
-        primaryStage.setScene(scene);
-    }
-
-    private void showGuestDashboard(Guest guest) {
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.TOP_LEFT);
-
-        Label welcome = new Label("Welcome back, " + guest.getUsername());
-        welcome.setStyle("-fx-font-size: 20px;");
-
-        Label balLabel = new Label("Current Balance: $" + guest.getBalance());
+        // Style buttons
+        String btnStyle = "-fx-background-color: #34495e; -fx-text-fill: white; -fx-alignment: CENTER-LEFT;";
+        btnRooms.setStyle(btnStyle); btnRooms.setMaxWidth(Double.MAX_VALUE);
+        btnReservations.setStyle(btnStyle); btnReservations.setMaxWidth(Double.MAX_VALUE);
+        btnLogout.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
         
-        Button btnBook = new Button("Book a Room");
-        Button btnLogout = new Button("Logout");
         btnLogout.setOnAction(e -> showLoginScreen());
 
-        layout.getChildren().addAll(welcome, balLabel, btnBook, btnLogout);
+        sidebar.getChildren().addAll(lblUser, new Separator(), btnRooms, btnReservations, btnLogout);
 
-        Scene scene = new Scene(layout, 600, 400);
-        primaryStage.setScene(scene);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+        // Content Area: ListView for Rooms
+        ListView<String> contentList = new ListView<>();
+        btnRooms.setOnAction(e -> {
+            contentList.getItems().clear();
+            for (Room r : HotelDatabase.rooms) {
+                String status = r.isAvailable() ? "AVAILABLE" : "OCCUPIED";
+                contentList.getItems().add("Room " + r.getRoomNumber() + " [" + r.getRoomType().getName() + "] - " + status);
+            }
+        });
