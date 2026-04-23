@@ -21,7 +21,7 @@ class Amenity {
 
 
 
-
+//da gemini edahooly ka t3deel 3ala 2l Amenity 3alashan 2l GUI
 
 //public class Amenity { // Added 'public'
 //    private String name;
