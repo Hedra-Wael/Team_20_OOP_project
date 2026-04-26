@@ -4,15 +4,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public class Reservation {
-    public enum ReservationStatus {
-        PENDING, CONFIRMED, CANCELLED, COMPLETED
-    }
     private int reservationId;
     private Guest guest;
     private Room room;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private ReservationStatus status;
+    private String status;
 
     public Reservation(int reservationId, Guest guest, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
         this.reservationId = reservationId;
@@ -20,7 +17,7 @@ public class Reservation {
         this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.status = ReservationStatus.CONFIRMED;
+        this.status = "CONFIRMED";
     }
 
     public long getNumberOfNights() {
@@ -29,8 +26,8 @@ public class Reservation {
 
     public Guest getGuest() { return guest; }
     public int getReservationId() { return reservationId; }
-    public ReservationStatus getStatus() { return status; }
-    public void setStatus(ReservationStatus status) { this.status = status; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     @Override
     public String toString() {
@@ -51,8 +48,7 @@ public class Reservation {
         this.isAllInclusive = isAllInclusive;
     }
 
-    public boolean isAllInclusive() { return isAllInclusive; }
-
-
-
+    public boolean isAllInclusive() { 
+        return isAllInclusive; 
+    }
 }
