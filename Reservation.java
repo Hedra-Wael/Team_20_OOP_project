@@ -28,6 +28,7 @@ public class Reservation {
     public int getReservationId() { return reservationId; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public Room getRoom() { return room; }
 
     @Override
     public String toString() {
