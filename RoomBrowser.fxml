@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.RoomBrowserController">
+   <children>
+      <VBox spacing="15.0" prefWidth="200.0" style="-fx-padding: 15px; -fx-background-color: #f4f4f4;">
+         <children>
+            <Label text="Filter Rooms" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="roomTypeFilter" promptText="Select Type" prefWidth="150.0"/>
+            <CheckBox fx:id="availableOnlyCheckbox" text="Available Only"/>
+            <Button text="Apply Filters" fx:id="applyFiltersButton" onAction="#filterRooms"/>
+            <Region VBox.vgrow="ALWAYS" />
+            <Button text="Back to Dashboard" fx:id="backButton" onAction="#goBack"/>
+         </children>
+      </VBox>
+      
+      <VBox spacing="10.0" HBox.hgrow="ALWAYS" style="-fx-padding: 15px;">
+         <children>
+            <ListView fx:id="roomListView" prefHeight="400.0"/>
+            <Button text="Book Selected Room" fx:id="bookRoomButton" onAction="#handleBooking"/>
+         </children>
+      </VBox>
+   </children>
+</HBox>
