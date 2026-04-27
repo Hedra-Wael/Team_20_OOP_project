@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.GuestDashboardController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #e0e0e0; -fx-padding: 10px;">
+         <children>
+            <Label fx:id="welcomeLabel" text="Welcome, Guest!" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="balanceLabel" text="Balance: 0.0 EGP"/>
+            <Button text="Logout" fx:id="logoutButton" onAction="#handleLogout"/>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox spacing="10.0" style="-fx-padding: 20px;">
+         <children>
+            <Label text="Your Active Reservations"/>
+            <TableView fx:id="reservationsTable" prefHeight="300.0">
+               <columns>
+                  <TableColumn text="Res ID" fx:id="colResId" prefWidth="100.0"/>
+                  <TableColumn text="Room" fx:id="colRoom" prefWidth="100.0"/>
+                  <TableColumn text="Check-In" fx:id="colCheckIn" prefWidth="150.0"/>
+                  <TableColumn text="Status" fx:id="colStatus" prefWidth="100.0"/>
+               </columns>
+            </TableView>
+            <Button text="Browse Rooms" fx:id="browseRoomsButton" onAction="#goToRoomBrowser"/>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
