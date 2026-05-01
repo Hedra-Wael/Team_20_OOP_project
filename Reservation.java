@@ -29,6 +29,8 @@ public class Reservation {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public Room getRoom() { return room; }
+    public LocalDate getCheckInDate() { return checkInDate; }
+    public LocalDate getCheckOutDate() { return checkOutDate; }
 
     @Override
     public String toString() {
