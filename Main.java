@@ -3,7 +3,7 @@ package com.mycompany.oop_project;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class Main {
+public class NewMain {
     private static Scanner scanner = new Scanner(System.in);
     private static int reservationCounter = 1001;
     private static int invoiceCounter = 5001;
@@ -166,7 +166,7 @@ public class Main {
 
             System.out.println("Select Payment (1. CASH, 2. CREDIT_CARD): ");
             int pChoice = scanner.nextInt();
-            Invoice.PaymentMethod method = (pChoice == 2) ? Invoice.PaymentMethod.CREDIT_CARD : Invoice.PaymentMethod.CASH;
+            PaymentMethod method = (pChoice == 2) ? PaymentMethod.CREDIT_CARD : PaymentMethod.CASH;
 
             invoice.processPayment(method);
         } else {
