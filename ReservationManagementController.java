@@ -11,34 +11,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReservationManagementController implements Initializable {
 
-    @FXML private TableView<Reservation>
-            reservationTable;
-    @FXML private TableColumn<Reservation, Integer>
-            idColumn;
-    @FXML private TableColumn<Reservation, String>
-            guestNameColumn;
-    @FXML private TableColumn<Reservation, Integer>
-            roomColumn;
-    @FXML private TableColumn<Reservation, String>
-            checkInColumn;
-    @FXML private TableColumn<Reservation, String>
-            checkOutColumn;
-    @FXML private TableColumn<Reservation, String>
-            statusColumn;
-
+    @FXML private TableView<Reservation> reservationTable;
+    @FXML private TableColumn<Reservation, Integer> idColumn;
+    @FXML private TableColumn<Reservation, String> guestNameColumn;
+    @FXML private TableColumn<Reservation, Integer> roomColumn;
+    @FXML private TableColumn<Reservation, String> checkInColumn;
+    @FXML private TableColumn<Reservation, String> checkOutColumn;
+    @FXML private TableColumn<Reservation, String> statusColumn;
     @FXML private Button cancelButton;
     @FXML private Button viewDetailsButton;
 
+    private SceneController sceneController = new SceneController();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        HotelDatabase.loaddata();
-
         idColumn.setCellValueFactory(new PropertyValueFactory<>("reservationId"));
         checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkInDate"));
         checkOutColumn.setCellValueFactory(new PropertyValueFactory<>("checkOutDate"));
@@ -52,9 +44,6 @@ public class ReservationManagementController implements Initializable {
 
         ObservableList<Reservation> reservationList = FXCollections.observableArrayList(HotelDatabase.reservations);
         reservationTable.setItems(reservationList);
-
-        cancelButton.disableProperty().bind(reservationTable.getSelectionModel().selectedItemProperty().isNull());
-        viewDetailsButton.disableProperty().bind(reservationTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     @FXML
@@ -63,23 +52,16 @@ public class ReservationManagementController implements Initializable {
         if (selected != null) {
             selected.setStatus(ReservationStatus.CANCELLED);
             reservationTable.refresh();
-            System.out.println("Reservation " + selected.getReservationId() + " has been cancelled.");
         }
     }
 
     @FXML
-    void handleViewDetails(ActionEvent event) {
-        Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            System.out.println("Guest: " + selected.getGuest().getUsername());
-            System.out.println("Address: " + selected.getGuest().getAddress());
-            System.out.println("Balance: $" + selected.getGuest().getBalance());
-            System.out.println("Room: " + selected.getRoom().getRoomNumber());
-        }
+    void handleAddNewReservation(ActionEvent event) throws IOException {
+        sceneController.switchToRoomBrowser(event);
     }
 
     @FXML
-    void handleAddNewReservation(ActionEvent event) {
-        System.out.println("Switching to New Reservation Screen...");
+    void handleLogout(ActionEvent event) throws IOException {
+        sceneController.switchToLogin(event);
     }
 }
