@@ -32,7 +32,7 @@
                   <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
                </columns>
             </TableView>
-            <Button fx:id="browseRoomsButton" onAction="#goToRoomBrowser" text="Browse Rooms" />
+            <Button fx:id="browseRoomsButton" onAction="#switchToRoomBrowser" text="Browse Rooms" />
          </children>
       </VBox>
    </center>
