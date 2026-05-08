@@ -2,14 +2,18 @@ package com.mycompany.oop_project;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+enum ReservationStatus {
+    PENDING, CONFIRMED, CANCELLED, COMPLETED
+
+        }
 
 public class Reservation {
     private int reservationId;
     private Guest guest;
-    private Room room;
+    private com.example.test.Room room;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private String status;
+    private ReservationStatus  status;
 
     public Reservation(int reservationId, Guest guest, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
         this.reservationId = reservationId;
@@ -17,7 +21,7 @@ public class Reservation {
         this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.status = "CONFIRMED";
+        status = ReservationStatus.CONFIRMED;
     }
 
     public long getNumberOfNights() {
@@ -26,8 +30,8 @@ public class Reservation {
 
     public Guest getGuest() { return guest; }
     public int getReservationId() { return reservationId; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public ReservationStatus getStatus() { return status; }
+    public void setStatus(ReservationStatus status) { this.status = status; }
     public Room getRoom() { return room; }
     public LocalDate getCheckInDate() { return checkInDate; }
     public LocalDate getCheckOutDate() { return checkOutDate; }
@@ -51,7 +55,7 @@ public class Reservation {
         this.isAllInclusive = isAllInclusive;
     }
 
-    public boolean isAllInclusive() { 
-        return isAllInclusive; 
+    public boolean isAllInclusive() {
+        return isAllInclusive;
     }
 }
