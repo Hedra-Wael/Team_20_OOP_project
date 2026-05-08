@@ -1,5 +1,6 @@
 package com.mycompany.oop_project;
 
+// You can delete the ArrayList and LocalDate imports, they aren't needed here
 
 public class RoomType {
     private String name;
@@ -10,6 +11,7 @@ public class RoomType {
         this.basePrice = basePrice;
     }
     
+    // --- Added Getters so the GUI can actually read the data ---
     public String getName() { 
         return name; 
     }
@@ -18,7 +20,7 @@ public class RoomType {
         return basePrice; 
     }
     
-
+    // Optional Setters depending on if your Admin can edit prices
     public void setName(String name) {
         this.name = name;
     }
@@ -27,7 +29,7 @@ public class RoomType {
         this.basePrice = basePrice;
     }
     
-
+    // Overriding toString is super helpful for JavaFX ComboBoxes (Dropdowns)!
     @Override
     public String toString() {
         return name + " ($" + basePrice + ")";
