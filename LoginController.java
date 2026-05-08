@@ -1,48 +1,44 @@
 package com.mycompany.oop_project;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import java.io.IOException;
 
 public class LoginController {
 
-    @FXML
-    private TextField usernameField;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label errorLabel;
+
+    private SceneController sceneController = new SceneController();
 
     @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    public void handleLogin() {
+    public void handleLogin(ActionEvent event) throws IOException {
         errorLabel.setText("");
-
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // FIXED: Added missing  operators
-        if (username == null  username.trim().isEmpty()  password == null  password.trim().isEmpty()) {
-            
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             errorLabel.setText("Username and Password cannot be empty");
             errorLabel.setTextFill(Color.RED);
-            return; 
+            return;
         }
 
         for (Guest guest : HotelDatabase.guests) {
             if (guest.getUsername().equals(username) && guest.getPassword().equals(password)) {
-                System.out.println("Guest Login Successful!");
-                return; 
+                sceneController.switchToDashboard(event);
+                return;
             }
         }
 
         for (Staff staff : HotelDatabase.staffMembers) {
             if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
-                System.out.println("Staff Login Successful! Role: " + staff.getRole());
-                return; 
+                sceneController.switchToReservationManagement(event);
+                return;
             }
         }
 
