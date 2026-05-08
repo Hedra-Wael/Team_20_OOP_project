@@ -7,13 +7,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.scene.paint.Color;
 public class invoiceController implements Initializable {
 
-    @FXML private Label guestNameLabel;
-    @FXML private Label totalAmountLabel;
-    @FXML private Label statusLabel;
-    @FXML private ChoiceBox<PaymentMethod> choiceBox;
+    @FXML 
+    private Label guestNameLabel;
+    @FXML 
+    private Label totalAmountLabel;
+    @FXML 
+    private Label statusLabel;
+    @FXML 
+    private ChoiceBox<PaymentMethod> choiceBox;
 
     private Reservation currentReservation;
     private Invoice currentInvoice;
@@ -47,13 +51,13 @@ public class invoiceController implements Initializable {
             currentInvoice.processPayment(selectedMethod);
 
             statusLabel.setText("Success! New Balance: " + currentReservation.getGuest().getBalance());
-            statusLabel.setStyle("-fx-text-fill: green;");
+            statusLabel.setTextFill(Color.GREEN);
 
             HotelDatabase.invoices.add(currentInvoice);
 
         } catch (InvalidPaymentException ex) {
             statusLabel.setText(ex.getMessage());
-            statusLabel.setStyle("-fx-text-fill: red;");
+            statusLabel.setTextFill(Color.RED);
         }
     }
 }
