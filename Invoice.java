@@ -1,9 +1,12 @@
 package com.mycompany.oop_project;
-import java.time.LocalDate;  
+import java.time.LocalDate;
+enum PaymentMethod {
+    CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER
+}
+
+
 
 public class Invoice implements Payable {
-
-    public enum PaymentMethod { CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER }
 
     private int invoiceId;
     private Reservation reservation;
@@ -26,13 +29,13 @@ public class Invoice implements Payable {
 //        this.totalAmount = nights * pricePerNight;
 //    }
 
-    public void processPayment(PaymentMethod method) {
+    public void processPayment(PaymentMethod paymentMethod) {
         if (reservation.getGuest().getBalance() >= totalAmount) {
             reservation.getGuest().setBalance(reservation.getGuest().getBalance() - totalAmount);
             this.isPaid = true;
-            this.paymentMethod = method;
-            reservation.setStatus(Reservation.ReservationStatus.COMPLETED); // Assuming you used the Enum
-            System.out.println("Payment successful via " + method);
+            this.paymentMethod = paymentMethod;
+            reservation.setStatus(ReservationStatus.COMPLETED); // Assuming you used the Enum
+            System.out.println("Payment successful via " + paymentMethod);
         } else {
             // Throwing the custom exception instead of just printing!
             throw new InvalidPaymentException("Insufficient balance. Total due: $" + totalAmount + ", Available: $" + reservation.getGuest().getBalance());
