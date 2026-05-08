@@ -83,4 +83,3 @@ public class ReservationManagementController implements Initializable {
         System.out.println("Switching to New Reservation Screen...");
     }
 }
-
