@@ -25,7 +25,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if (username == null  username.trim().isEmpty()  
-            password == null || password.trim().isEmpty()) {
+            || password == null || password.trim().isEmpty()) {
             
             errorLabel.setText("Username and Password cannot be empty");
             errorLabel.setTextFill(Color.RED);
