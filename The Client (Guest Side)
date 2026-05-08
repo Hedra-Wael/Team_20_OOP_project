@@ -1,0 +1,23 @@
+public class ChatClient {
+    private Socket socket;
+    private PrintWriter out;
+    private BufferedReader in;
+
+    public void connect(String ip, int port) throws IOException {
+        this.socket = new Socket(ip, port); // Connects to receptionist
+        this.out = new PrintWriter(socket.getOutputStream(), true);
+        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        
+        // Background thread to listen for incoming messages
+        new Thread(() -> {
+            try {
+                String msg;
+                while ((msg = in.readLine()) != null) {
+                    final String received = msg;
+                    // Update JavaFX UI safely
+                    Platform.runLater(() -> chatArea.appendText("Receptionist: " + received + "\n"));
+                }
+            } catch (IOException e) { e.printStackTrace(); }
+        }).start();
+    }
+}
