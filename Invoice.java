@@ -4,18 +4,8 @@ enum PaymentMethod {
     CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER
 }
 
-abstract class InvoiceAbstractClass implements Payable{
 
-    int invoiceId;
-    Reservation reservation;
-    double pricePerNight;
-    double totalAmount;
-    boolean isPaid;
-    PaymentMethod paymentMethod;
-    LocalDate paymentDate;
-}
-
-public  class Invoice extends InvoiceAbstractClass {
+public  class Invoice implements Payable{
 
     private int invoiceId;
     private Reservation reservation;
@@ -78,3 +68,4 @@ public  class Invoice extends InvoiceAbstractClass {
     }
 
 }
+
