@@ -24,8 +24,8 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // FIXED: Added missing || operators
-        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+        // FIXED: Added missing  operators
+        if (username == null  username.trim().isEmpty()  password == null  password.trim().isEmpty()) {
             
             errorLabel.setText("Username and Password cannot be empty");
             errorLabel.setTextFill(Color.RED);
@@ -39,7 +39,6 @@ public class LoginController {
             }
         }
 
-        // Make sure you add 'staffMembers' to your HotelDatabase class
         for (Staff staff : HotelDatabase.staffMembers) {
             if (staff.getUsername().equals(username) && staff.getPassword().equals(password)) {
                 System.out.println("Staff Login Successful! Role: " + staff.getRole());
