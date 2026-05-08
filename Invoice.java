@@ -1,13 +1,21 @@
-package com.mycompany.oop_project;
-
+package com.example.test;
 import java.time.LocalDate;
 enum PaymentMethod {
     CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER
 }
 
+abstract class InvoiceAbstractClass implements Payable{
 
+    int invoiceId;
+    Reservation reservation;
+    double pricePerNight;
+    double totalAmount;
+    boolean isPaid;
+    PaymentMethod paymentMethod;
+    LocalDate paymentDate;
+}
 
-public class Invoice implements Payable {
+public  class Invoice extends InvoiceAbstractClass {
 
     private int invoiceId;
     private Reservation reservation;
