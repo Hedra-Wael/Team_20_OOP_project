@@ -1,0 +1,49 @@
+package com.mycompany.oop_project;
+
+import javafx.application.Platform;
+import javafx.scene.control.TextArea;
+import java.io.*;
+import java.net.*;
+
+public class ChatServer {
+    public void startServer(int port, TextArea chatArea) {
+        Thread serverThread = new Thread(() -> {
+            try (ServerSocket serverSocket = new ServerSocket(port)) {
+                Platform.runLater(() -> chatArea.appendText("Server started on port " + port + "\n"));
+                while (true) {
+                    Socket socket = serverSocket.accept();
+                    // Multi-threading: Handle each client in a new thread
+                    new Thread(new ClientHandler(socket, chatArea)).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        serverThread.setDaemon(true);
+        serverThread.start();
+    }
+}
+
+class ClientHandler implements Runnable {
+    private Socket socket;
+    private TextArea chatArea;
+
+    public ClientHandler(Socket socket, TextArea chatArea) {
+        this.socket = socket;
+        this.chatArea = chatArea;
+    }
+
+    @Override
+    public void run() {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+            String message;
+            while ((message = in.readLine()) != null) {
+                String finalMsg = message;
+                // Never update UI from a non-JavaFX thread
+                Platform.runLater(() -> chatArea.appendText(finalMsg + "\n"));
+            }
+        } catch (IOException e) {
+            Platform.runLater(() -> chatArea.appendText("Client disconnected.\n"));
+        }
+    }
+}
