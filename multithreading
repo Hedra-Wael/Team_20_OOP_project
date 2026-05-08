@@ -1,0 +1,14 @@
+Task<List<Room>> loadRoomsTask = new Task<>() {
+    @Override
+    protected List<Room> call() throws Exception {
+        // Simulate background data loading
+        return HotelDatabase.getAvailableRooms(); 
+    }
+};
+
+loadRoomsTask.setOnSucceeded(e -> {
+    // Safely update the UI table on the JavaFX Thread
+    roomTableView.getItems().setAll(loadRoomsTask.getValue());
+});
+
+new Thread(loadRoomsTask).start();
