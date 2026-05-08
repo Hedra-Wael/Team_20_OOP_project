@@ -1,4 +1,4 @@
-package com.;
+package com.mycompany.oop_project;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
