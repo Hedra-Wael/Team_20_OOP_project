@@ -20,7 +20,7 @@ public class RoomBrowserController {
 
         // Simple loop to check each room
         for (Room r : HotelDatabase.rooms) {
-            if (selectedType == null  selectedType.equals("All")  r.getRoomType().getTypeName().equalsIgnoreCase(selectedType)) {
+            if (selectedType == null || selectedType.equals("All") || r.getRoomType().getTypeName().equalsIgnoreCase(selectedType)) {
                 roomListView.getItems().add(r);
             }
         }
