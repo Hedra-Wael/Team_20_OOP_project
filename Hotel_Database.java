@@ -9,10 +9,11 @@ public class HotelDatabase {
     public static ArrayList<Room> rooms = new ArrayList<>();
     public static ArrayList<Reservation> reservations = new ArrayList<>();
     public static ArrayList<Invoice> invoices = new ArrayList<>();
-    
-    // Additional lists to match your UML diagram
     public static ArrayList<RoomType> roomTypes = new ArrayList<>();
     public static ArrayList<Amenity> amenities = new ArrayList<>();
+    
+    // Static list for Staff
+    public static ArrayList<Staff> staffMembers = new ArrayList<>();
 
     // Pre-populate with dummy data for immediate testing
     public static void loaddata() {
@@ -23,6 +24,7 @@ public class HotelDatabase {
         invoices.clear();
         roomTypes.clear();
         amenities.clear();
+        staffMembers.clear();
 
         // 1. Create Room Types
         RoomType single = new RoomType("Single", 80.0);
@@ -63,7 +65,15 @@ public class HotelDatabase {
         guest1.setAddress("123 Main St");
         guests.add(guest1);
 
-        // 5. Create a Dummy Reservation & Invoice
+        // 5. Create Dummy Staff Members 
+        // Using the new subclasses (Admin, Receptionist) and the new constructor parameters
+        Staff admin = new Admin("admin", "admin123", LocalDate.of(1985, 5, 20), 40);
+        Staff frontDesk = new Receptionist("reception", "desk123", LocalDate.of(1995, 8, 10), 30);
+        
+        staffMembers.add(admin);
+        staffMembers.add(frontDesk);
+
+        // 6. Create a Dummy Reservation & Invoice
         // We set the room to unavailable since it is booked
         room101.setAvailable(false);
         Reservation res1 = new Reservation(1000, guest1, room101, LocalDate.now(), LocalDate.now().plusDays(3));
@@ -73,6 +83,6 @@ public class HotelDatabase {
         Invoice inv1 = new Invoice(5000, res1, 80.0, 0.14);
         invoices.add(inv1);
         
-        System.out.println("HotelDatabase successfully pre-populated with dummy data.");
+        System.out.println("HotelDatabase successfully pre-populated with dummy data, including updated Staff subclasses.");
     }
 }
