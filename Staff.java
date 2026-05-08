@@ -3,7 +3,8 @@ package com.mycompany.oop_project;
 import java.time.LocalDate;
 
 public abstract class Staff {
-    // Required Enum
+
+    // Required Enum for Roles
     public enum Role {
         ADMIN, RECEPTIONIST
     }
@@ -12,8 +13,9 @@ public abstract class Staff {
     protected String password;
     protected LocalDate dateOfBirth;
     protected int workingHours;
-    protected Role role; // Added role attribute
+    protected Role role; 
 
+    // Constructor
     public Staff(String username, String password, LocalDate dob, int hours, Role role) {
         this.username = username;
         this.password = password;
@@ -22,8 +24,47 @@ public abstract class Staff {
         this.role = role;
     }
 
-    public String getUsername() { return username; }
-    public Role getRole() { return role; }
+    // --- Getters ---
+    public String getUsername() { 
+        return username; 
+    }
+
+    public String getPassword() { 
+        return password; 
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public int getWorkingHours() {
+        return workingHours;
+    }
+
+    public Role getRole() { 
+        return role; 
+    }
+
+    // --- Setters ---
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setWorkingHours(int workingHours) {
+        this.workingHours = workingHours;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     // --- Shared Behaviors for all Staff ---
     
@@ -45,6 +86,7 @@ public abstract class Staff {
     public void viewAllReservations() {
         System.out.println("\n--- All Reservations ---");
         for (Reservation res : HotelDatabase.reservations) {
+            // Assuming your Reservation class has a toString() method
             System.out.println(res.toString());
         }
     }
