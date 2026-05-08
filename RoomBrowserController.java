@@ -1,3 +1,5 @@
+package com.mycompany.oop_project;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ComboBox;
@@ -20,7 +22,7 @@ public class RoomBrowserController {
 
         // Simple loop to check each room
         for (Room r : HotelDatabase.rooms) {
-            if (selectedType == null || selectedType.equals("All") || r.getRoomType().getTypeName().equalsIgnoreCase(selectedType)) {
+            if (selectedType == null || selectedType.equals("All") || r.getRoomType().getName().equalsIgnoreCase(selectedType)) {
                 roomListView.getItems().add(r);
             }
         }
