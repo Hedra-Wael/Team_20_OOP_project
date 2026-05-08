@@ -16,14 +16,14 @@ public class Receptionist extends Staff {
     public void handleCheckIn(Reservation res) {
         // Fixed: Use setAvailable(false)
         res.getRoom().setAvailable(false);
-        res.setStatus(Reservation.ReservationStatus.CONFIRMED);
+        res.setStatus(ReservationStatus.CONFIRMED);
         System.out.println("Guest checked in to room " + res.getRoom().getRoomNumber());
     }
 
     public void handleCheckOut(Reservation res, double pricePerNight) {
         // Fixed: Use setAvailable(true)
         res.getRoom().setAvailable(true);
-        res.setStatus(Reservation.ReservationStatus.COMPLETED);
+        res.setStatus(ReservationStatus.COMPLETED);
         
         // Fixed: Match the Invoice constructor we built earlier
         int newInvoiceId = HotelDatabase.invoices.size() + 5000;
