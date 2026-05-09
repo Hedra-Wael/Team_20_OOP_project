@@ -4,4 +4,3 @@ public interface Payable {
     void processPayment(PaymentMethod method);
     double getTotalAmount();
 }
-
