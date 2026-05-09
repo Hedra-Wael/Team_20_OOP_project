@@ -1,5 +1,4 @@
 package com.mycompany.oop_project;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,7 +10,7 @@ public class HotelDatabase {
     public static ArrayList<Invoice> invoices = new ArrayList<>();
     public static ArrayList<RoomType> roomTypes = new ArrayList<>();
     public static ArrayList<Amenity> amenities = new ArrayList<>();
-    
+
     // Static list for Staff
     public static ArrayList<Staff> staffMembers = new ArrayList<>();
 
@@ -34,6 +33,58 @@ public class HotelDatabase {
         roomTypes.add(doubleRoom);
         roomTypes.add(suite);
 
+        // 2. Create Amenities
+        Amenity wifi = new Amenity("WiFi");
+        Amenity tv = new Amenity("TV");
+        Amenity miniBar = new Amenity("Mini-bar");
+        amenities.add(wifi);
+        amenities.add(tv);
+        amenities.add(miniBar);
+
+        // 3. Create Rooms & Assign Amenities
+        Room room101 = new Room(101, single);
+        room101.addAmenity(wifi);
+        room101.addAmenity(tv);
+        rooms.add(room101);
+
+        rooms.add(new Room(201, single));
+        rooms.add(new Room(301, single));
+        rooms.add(new Room(102, doubleRoom));
+        rooms.add(new Room(202, doubleRoom));
+        rooms.add(new Room(302, doubleRoom));
+        rooms.add(new Room(103, suite));
+        rooms.add(new Room(203, suite));
+        rooms.add(new Room(303, suite));
+
+        // 4. Create Dummy Guests
+        Guest guest1 = new Guest();
+        guest1.setUsername("johndoe");
+        guest1.setPassword("password123");
+        guest1.setBalance(1500.0);
+        guest1.setAddress("123 Main St");
+        guests.add(guest1);
+
+        // 5. Create Dummy Staff Members
+        // Using the new subclasses (Admin, Receptionist) and the new constructor parameters
+        Staff admin = new Admin("admin", "admin123", LocalDate.of(1985, 5, 20), 40);
+        Staff frontDesk = new Receptionist("reception", "desk123", LocalDate.of(1995, 8, 10), 30);
+
+        staffMembers.add(admin);
+        staffMembers.add(frontDesk);
+
+        // 6. Create a Dummy Reservation & Invoice
+        // We set the room to unavailable since it is booked
+        room101.setAvailable(false);
+        Reservation res1 = new Reservation(1000, guest1, room101, LocalDate.now(), LocalDate.now().plusDays(3));
+        reservations.add(res1);
+
+        // Creating an unpaid invoice for the reservation
+        Invoice inv1 = new Invoice(5000, res1, 80.0, 0.14);
+        invoices.add(inv1);
+
+        System.out.println("HotelDatabase successfully pre-populated with dummy data, including updated Staff subclasses.");
+    }
+}
         // 2. Create Amenities
         Amenity wifi = new Amenity("WiFi");
         Amenity tv = new Amenity("TV");
