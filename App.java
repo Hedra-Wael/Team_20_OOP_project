@@ -12,7 +12,7 @@ public class App extends Application {
     // This static scene variable is the secret to making the Scene Switcher work
     private static Scene scene;
     public static Guest currentGuest;
-
+    public static Reservation currentReservationToPay;
     @Override
     public void start(Stage stage) throws IOException {
         // 1. Initialize the backend data first!
