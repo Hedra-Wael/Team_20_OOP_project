@@ -1,9 +1,8 @@
 package com.mycompany.oop_project;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class NewMain {
+public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static int reservationCounter = 1001;
     private static int invoiceCounter = 5001;
@@ -27,11 +26,21 @@ public class NewMain {
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
-                case 1 -> handleCheckIn();
-                case 2 -> handleCheckOut();
-                case 3 -> viewRoomStatus();
-                case 4 -> running = false;
-                default -> System.out.println("Invalid option.");
+                case 1:
+                    handleCheckIn();
+                    break;
+                case 2:
+                    handleCheckOut();
+                    break;
+                case 3:
+                    viewRoomStatus();
+                    break;
+                case 4:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+                    break;
             }
         }
         System.out.println("System closed.");
@@ -75,11 +84,18 @@ public class NewMain {
             int typeChoice = scanner.nextInt();
 
             int capacity = (typeChoice == 1) ? 1 : 2;
-            double nightlyRate = switch (typeChoice) {
-                case 2 -> 120.0;
-                case 3 -> 250.0;
-                default -> 80.0;
-            };
+            double nightlyRate;
+            switch (typeChoice) {
+                case 2:
+                    nightlyRate = 120.0;
+                    break;
+                case 3:
+                    nightlyRate = 250.0;
+                    break;
+                default:
+                    nightlyRate = 80.0;
+                    break;
+            }
 
             // Showing rooms matching your numbering rules (10X, 20X, 30X)
             System.out.print("Available Rooms: ");
