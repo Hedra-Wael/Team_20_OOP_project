@@ -1,13 +1,24 @@
-public boolean validateLogin(String username, String password) {
-    String query = "SELECT * FROM guests WHERE username = ? AND password = ?";
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
-        
-        stmt.setString(1, username);
-        stmt.setString(2, password);
-        return stmt.executeQuery().next(); // Returns true if user exists
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+package com.mycompany.oop_project;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class validateLogin {
+    // Add this line
+
+    public boolean validateLogin(String username, String password) {
+        String query = "SELECT * FROM guests WHERE username = ? AND password = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+
+            return stmt.executeQuery().next(); // Returns true if user exists
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
+} // Add this closing bracket
