@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.SceneController">
+<BorderPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.GuestDashboardController">
    <top>
       <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #e0e0e0; -fx-padding: 10px;">
          <children>
             <Label fx:id="welcomeLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Welcome, Guest!" />
             <Region HBox.hgrow="ALWAYS" />
             <Label fx:id="balanceLabel" text="Balance: 0.0 EGP" />
-            <Button fx:id="logoutButton" onAction="#switchToLogin" text="Logout" />
+            <Button fx:id="logoutButton" onAction="#handleLogout" text="Logout" />
          </children>
       </HBox>
    </top>
@@ -32,8 +32,10 @@
                   <TableColumn fx:id="colStatus" prefWidth="100.0" text="Status" />
                </columns>
             </TableView>
-            <Button fx:id="browseRoomsButton" onAction="#switchToRoomBrowser" text="Browse Rooms" />
+            <Button fx:id="browseRoomsButton" onAction="#goToRoomBrowser" text="Browse Rooms" />
          </children>
       </VBox>
+   </center>
+</BorderPane>      </VBox>
    </center>
 </BorderPane>
