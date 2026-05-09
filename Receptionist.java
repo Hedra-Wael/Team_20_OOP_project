@@ -1,39 +1,38 @@
 package com.mycompany.oop_project;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-enum ReservationStatus {
-    PENDING, CONFIRMED, CANCELLED, COMPLETED
 
-        }
-
-public class Reservation {
-    private int reservationId;
-    private Guest guest;
-    private Room room;
-    private LocalDate checkInDate;
-    private LocalDate checkOutDate;
-    private ReservationStatus  status;
-
-    public Reservation(int reservationId, Guest guest, Room room, LocalDate checkInDate, LocalDate checkOutDate) {
-        this.reservationId = reservationId;
-        this.guest = guest;
-        this.room = room;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        status = ReservationStatus.CONFIRMED;
+public class Receptionist extends Staff {
+    
+    // Automatically set the role to RECEPTIONIST
+    public Receptionist(String username, String password, LocalDate dob, int hours) {
+        super(username, password, dob, hours, Role.RECEPTIONIST);
     }
 
-    public long getNumberOfNights() {
-        return ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+    public void makeReservation(Reservation res) {
+        HotelDatabase.reservations.add(res);
     }
 
-    public Guest getGuest() { return guest; }
-    public int getReservationId() { return reservationId; }
-    public ReservationStatus getStatus() { return status; }
-    public void setStatus(ReservationStatus status) { this.status = status; }
-    public Room getRoom() { return room; }
-    public LocalDate getCheckInDate() { return checkInDate; }
+    public void handleCheckIn(Reservation res) {
+        // Fixed: Use setAvailable(false)
+        res.getRoom().setAvailable(false);
+        res.setStatus(ReservationStatus.CONFIRMED);
+        System.out.println("Guest checked in to room " + res.getRoom().getRoomNumber());
+    }
+
+    public void handleCheckOut(Reservation res, double pricePerNight) {
+        // Fixed: Use setAvailable(true)
+        res.getRoom().setAvailable(true);
+        res.setStatus(ReservationStatus.COMPLETED);
+        
+        // Fixed: Match the Invoice constructor we built earlier
+        int newInvoiceId = HotelDatabase.invoices.size() + 5000;
+        Invoice inv = new Invoice(newInvoiceId, res, pricePerNight, 0.14);
+        HotelDatabase.invoices.add(inv);
+        
+        System.out.println("Guest checked out. Invoice generated for $" + inv.getTotalAmount());
+    }
+}
     public LocalDate getCheckOutDate() { return checkOutDate; }
 
     @Override
