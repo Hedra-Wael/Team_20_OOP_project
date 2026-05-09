@@ -23,8 +23,16 @@ public class Room {
     public void addAmenity(Amenity amenity) {
         if (amenity != null) this.amenities.add(amenity);
     }
+    
 
     public int getRoomNumber() { return roomNumber; }
     public boolean isAvailable() { return isAvailable; }
     public void setAvailable(boolean available) { this.isAvailable = available; }
+    @Override
+    public String toString() {
+        String status = this.isAvailable() ? "Available" : "Occupied";
+        // Adjust the variable names if your Room class uses different getters!
+        return "Room " + this.getRoomNumber() + " - " + this.getRoomType().getName() + " [" + status + "]";
+    }
 }
+
