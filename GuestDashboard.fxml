@@ -10,6 +10,9 @@
                 <Region prefHeight="20.0"/>
                 <Button text="Dashboard" styleClass="sidebar-btn" prefWidth="250.0"/>
                 <Button fx:id="browseRoomsButton" text="Book a Room" styleClass="sidebar-btn" prefWidth="250.0" onAction="#goToRoomBrowser"/>
+                
+                <Button fx:id="checkoutButton" text="Pay Selected Booking" styleClass="sidebar-btn" prefWidth="250.0" onAction="#goToCheckout"/>
+                
                 <Region VBox.vgrow="ALWAYS"/>
                 <Button fx:id="logoutButton" text="Log Out" styleClass="sidebar-btn" prefWidth="250.0" onAction="#handleLogout"/>
             </children>
