@@ -10,7 +10,7 @@ enum ReservationStatus {
 public class Reservation {
     private int reservationId;
     private Guest guest;
-    private com.example.test.Room room;
+    private Room room;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private ReservationStatus  status;
