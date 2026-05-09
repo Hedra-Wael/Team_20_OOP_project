@@ -33,28 +33,3 @@ public class Receptionist extends Staff {
         System.out.println("Guest checked out. Invoice generated for $" + inv.getTotalAmount());
     }
 }
-    public LocalDate getCheckOutDate() { return checkOutDate; }
-
-    @Override
-    public String toString() {
-        return "Reservation #" + reservationId + " | Guest: " + guest.getUsername() +
-                " | Nights: " + getNumberOfNights() + " | Status: " + status;
-    }
-
-
-
-
-    //hedra extra
-    private int numberOfGuests;
-    private boolean isAllInclusive;
-
-    // Update your constructor or add a setter
-    public void setStayDetails(int numberOfGuests, boolean isAllInclusive) {
-        this.numberOfGuests = numberOfGuests;
-        this.isAllInclusive = isAllInclusive;
-    }
-
-    public boolean isAllInclusive() {
-        return isAllInclusive;
-    }
-}
