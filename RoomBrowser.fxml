@@ -2,24 +2,47 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.RoomBrowserController">
-   <children>
-      <VBox spacing="15.0" prefWidth="200.0" style="-fx-padding: 15px; -fx-background-color: #f4f4f4;">
-         <children>
-            <Label text="Filter Rooms" style="-fx-font-weight: bold;"/>
-            <ComboBox fx:id="roomTypeFilter" promptText="Select Type" prefWidth="150.0"/>
-            <CheckBox fx:id="availableOnlyCheckbox" text="Available Only"/>
-            <Button text="Apply Filters" fx:id="applyFiltersButton" onAction="#filterRooms"/>
-            <Region VBox.vgrow="ALWAYS" />
-            <Button text="Back to Dashboard" fx:id="backButton" onAction="#goBack"/>
-         </children>
-      </VBox>
-      
-      <VBox spacing="10.0" HBox.hgrow="ALWAYS" style="-fx-padding: 15px;">
-         <children>
-            <ListView fx:id="roomListView" prefHeight="400.0"/>
-            <Button text="Book Selected Room" fx:id="bookRoomButton" onAction="#handleBooking"/>
-         </children>
-      </VBox>
-   </children>
-</HBox>
+<BorderPane prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #f4f7f6;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.oop_project.RoomBrowserController">
+    <top>
+        <HBox alignment="CENTER_LEFT" styleClass="card" style="-fx-background-radius: 0; -fx-padding: 20px;">
+            <children>
+                <Label text="Hotel Oasis - Room Booking" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1e3c72;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="← Back to Dashboard" styleClass="sidebar-btn" onAction="#goBack"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="30.0" style="-fx-padding: 30px;">
+            <children>
+                <VBox spacing="20.0" styleClass="card" prefWidth="300.0">
+                    <children>
+                        <Label text="Search Filters" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        
+                        <Label text="Room Type" style="-fx-text-fill: #6c757d;"/>
+                        <ComboBox fx:id="roomTypeFilter" prefWidth="250.0" promptText="Select Type"/>
+                        
+                        <CheckBox fx:id="availableOnlyCheckbox" text="Show Available Only" style="-fx-font-size: 14px; -fx-text-fill: #495057;"/>
+                        
+                        <Button text="Apply Filters" styleClass="btn-primary" prefWidth="250.0" onAction="#filterRooms"/>
+                    </children>
+                </VBox>
+
+                <VBox spacing="15.0" styleClass="card" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label text="Available Rooms" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                        <ListView fx:id="roomListView" VBox.vgrow="ALWAYS" style="-fx-font-size: 15px;"/>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <Button text="Book Selected Room" styleClass="btn-primary" prefHeight="45.0" prefWidth="200.0" onAction="#handleBooking"/>
+                                <Label fx:id="statusLabel" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+</BorderPane>
