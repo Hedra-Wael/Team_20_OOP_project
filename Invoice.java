@@ -1,4 +1,4 @@
-package com.example.test;
+package com.mycompany.oop_project;
 import java.time.LocalDate;
 enum PaymentMethod {
     CASH, CREDIT_CARD, DEBIT_CARD, ONLINE_TRANSFER
@@ -34,6 +34,41 @@ public  class Invoice implements Payable{
             this.isPaid = true;
             this.paymentMethod = paymentMethod;
             reservation.setStatus(ReservationStatus.COMPLETED); // Assuming you used the Enum
+            System.out.println("Payment successful via " + paymentMethod);
+        } else {
+            // Throwing the custom exception instead of just printing!
+            throw new InvalidPaymentException("Insufficient balance. Total due: $" + totalAmount + ", Available: $" + reservation.getGuest().getBalance());
+        }
+    }
+
+
+    public double getTotalAmount() { return totalAmount; }
+    public boolean isPaid() { return isPaid; }
+    public LocalDate getPaymentDate() { return paymentDate; }
+
+
+
+
+
+
+
+
+
+
+    //hedra extra
+
+    private void calculateTotal() {
+        long nights = reservation.getNumberOfNights();
+        double baseTotal = nights * pricePerNight;
+
+        if (reservation.isAllInclusive()) {
+            baseTotal += (nights * 50.0); // Adding $50 per night for All-Inclusive
+        }
+        this.totalAmount = baseTotal;
+    }
+
+}
+
             System.out.println("Payment successful via " + paymentMethod);
         } else {
             // Throwing the custom exception instead of just printing!
